@@ -11,19 +11,23 @@ app.set('view engine', 'ejs');
 const comments = [
   {
     username: 'Todd',
-    comment: 'lol that is so funny!'
+    comment: 'lol that is so funny!',
+    id: 1
   },
   {
     username: 'Skyler',
-    comment: 'I like to go birdwatching with my dog'
+    comment: 'I like to go birdwatching with my dog',
+    id: 2
   },
   {
     username: 'Sk8erBoi',
-    comment: 'Plz delete your account, Todd'
+    comment: 'Plz delete your account, Todd',
+    id: 3
   },
   {
     username: 'onlysayswoof',
-    comment: 'woof woof woof'
+    comment: 'woof woof woof',
+    id: 4
   }
 ];
 
@@ -40,6 +44,12 @@ app.post('/comments', (req, res) => {
   comments.push({ username, comment });
   res.redirect('/comments');
 });
+
+app.get('/comments/:id', (req, res) => {
+  const { id } = req.params;
+  const comment = comments.find(c => c.id === parseInt(id));
+  res.render('comments/show', { comment });
+})
 
 
 app.listen(3001, () => {
